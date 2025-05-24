@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="es">
 <head>
     
     <meta charset="UTF-8">
@@ -172,14 +172,14 @@
         </div>
         <div class="footer-bottom-line">
             <a data-i18n="copyrightText">内容由AI生成，无法确保真实准确，仅供参考.</a>
-            <a href="privacy-policy.html" data-i18n="privacyPolicy">个人信息保护规则</a>
+            <a href="privacy-policy.html" data-i18n="privacyPolicyLinkText">个人信息保护规则</a>
         </div>
     </footer>
 
     <script src="js/translations.js"></script>
     <script>
         function applyPrivacyPageTranslations() {
-            const currentLang = localStorage.getItem('language') || 'zh';
+            const currentLang = localStorage.getItem('language') || 'es';
             if (typeof translations !== 'undefined' && translations[currentLang]) {
                 const trans = translations[currentLang];
                 document.querySelectorAll('[data-i18n]').forEach(el => {
