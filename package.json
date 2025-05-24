@@ -1,0 +1,26 @@
+{
+  "name": "gemini2.5pro",
+  "version": "1.0.0",
+  "description": "这是一个展示 Google Gemini 2.5 Pro 能力的中文演示网站，提供在线对话体验、能力介绍和用户评价展示。",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "https-proxy-agent": "^7.0.6",
+    "openai": "^4.98.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "serverless-http": "^3.2.0"
+  }
+}

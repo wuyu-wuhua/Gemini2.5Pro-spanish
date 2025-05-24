@@ -1,0 +1,1833 @@
+/* 全局样式 */
+:root {
+    --primary-color: #4285f4;
+    --secondary-color: #34a853;
+    --accent-color: #ea4335;
+    --text-color: #202124;
+    --light-text: #5f6368;
+    --background-color: #808080; /* Gray page background */
+    --light-bg: #f8f9fa; 
+    --main-content-bg: #fdfdfd; /* New light white for main content */
+    --sidebar-text-color: #000000; /* New black for sidebar text */
+    --border-color: #dadce0;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --sidebar-width: 300px;
+    --chat-height: 500px; /* 增加聊天高度 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    min-height: 100%;
+    overflow-y: auto; /* Allow vertical scroll */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body {
+    height: 100%;
+    min-height: 100%;
+    font-family: 'Google Sans', Arial, sans-serif;
+    color: var(--text-color);
+    background: var(--background-color); /* Use the new gray background color */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative; /* For pseudo-elements */
+    overflow-x: hidden; /* Hide horizontal overflow but allow vertical */
+    overflow-y: auto; /* Ensure vertical scroll is explicitly allowed for body */
+}
+
+body::before {
+    content: '';
+    position: fixed; /* Use fixed to cover the viewport */
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 100%;
+    background-image: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 60%); /* Subtle nebula effect */
+    z-index: -2; /* Behind content */
+}
+
+/* Create multiple layers of particles for depth */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden; /* Prevent scrollbars from particles themselves */
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: rise linear infinite;
+    background-color: rgba(0, 150, 255, 0.3); /* Light blue, semi-transparent for bubbles */
+    box-shadow: 0 0 5px rgba(0, 150, 255, 0.5), 0 0 10px rgba(0, 150, 255, 0.3); /* Bubble glow */
+    opacity: 0; /* Start invisible, fade in */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* For mouse interaction */
+}
+
+@keyframes rise {
+    0% {
+        transform: translateY(100vh) scale(0.8); /* Start slightly smaller */
+        opacity: 0.7; /* Bubbles are somewhat transparent */
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-10vh) scale(1.2); /* Grow slightly as they rise */
+        opacity: 0;
+    }
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: var(--transition);
+}
+
+/* Page Title Block */
+.page-title-block {
+    padding: 20px 0 32px 0; /* Maintain vertical padding */
+    position: relative; /* For absolute positioning of child elements */
+    text-align: center; /* Center the inline-block title-subtitle-group */
+    /* display: flex; */ /* Removed flex properties */
+    /* justify-content: center; */ /* Removed flex properties */
+    /* align-items: center; */ /* Removed flex properties */
+    /* gap: 20px; */ /* Removed flex properties */
+}
+
+.title-subtitle-group {
+    text-align: center; /* Ensures h1 and p inside are centered */
+    display: inline-block; /* Allows centering via parent's text-align */
+    vertical-align: middle; /* Good practice for inline-block elements */
+    /* flex-shrink: 0; */ /* Removed flex item property */
+}
+
+.title-subtitle-group h1, .capabilities-section h2, .login-container h1, .register-container h1,
+.main-content h2, /* General h2 in main content */
+.main-content h3, /* General h3 in main content */
+.sidebar h2, /* Sidebar titles */
+.scenarios h3, /* Scenario titles */
+.reviews-section h2, /* Reviews section titles */
+.rating-summary h2, /* Rating summary titles */
+.capabilities-section h3, /* Titles within capability cards */
+.achievement-card h3, /* Titles within achievement cards */
+.reviewer-info h4, /* Reviewer names (styled like a title) */
+.page-title-block h1 /* Ensure this is also covered for pages like capabilities.html */
+{
+    font-size: 2.5rem; /* Ensure consistent base size */
+    font-weight: 700;
+    color: #ffffff; /* Base color for the text */
+    text-shadow:
+        0 0 5px rgba(76, 175, 80, 0.7), /* Softer green glow */
+        0 0 10px rgba(76, 175, 80, 0.5),
+        0 0 15px rgba(76, 175, 80, 0.3),
+        0 1px 1px #fff, /* Top highlight for 3D */
+        0 2px 2px #ccc, /* Mid highlight */
+        0 3px 3px #999, /* Bottom shadow for 3D depth */
+        2px 5px 8px rgba(0,0,0,0.5); /* Drop shadow for pop */
+    position: relative;
+    animation: shine 2s infinite linear;
+}
+
+@keyframes shine {
+    0% {
+        text-shadow:
+            0 0 5px rgba(76, 175, 80, 0.7),
+            0 0 10px rgba(76, 175, 80, 0.5),
+            0 0 15px rgba(76, 175, 80, 0.3),
+            0 1px 1px #fff, 0 2px 2px #ccc, 0 3px 3px #999,
+            2px 5px 8px rgba(0,0,0,0.5);
+    }
+    50% {
+        text-shadow:
+            0 0 10px rgba(129, 212, 250, 0.9), /* Brighter blue glow */
+            0 0 20px rgba(129, 212, 250, 0.7),
+            0 0 30px rgba(129, 212, 250, 0.5),
+            0 1px 1px #fff, 0 2px 2px #eee, 0 3px 3px #ccc,
+            2px 5px 10px rgba(0,0,0,0.6);
+    }
+    100% {
+        text-shadow:
+            0 0 5px rgba(76, 175, 80, 0.7),
+            0 0 10px rgba(76, 175, 80, 0.5),
+            0 0 15px rgba(76, 175, 80, 0.3),
+            0 1px 1px #fff, 0 2px 2px #ccc, 0 3px 3px #999,
+            2px 5px 8px rgba(0,0,0,0.5);
+    }
+}
+
+.title-subtitle-group .subtitle {
+    font-size: 1rem;
+    color: #888; /* Using a more distinct color for subtitle */
+    margin: 0;
+}
+
+.title-container {
+    /* This class might be redundant now or can be simplified/removed */
+    /* text-align: center; */
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* gap: 1rem; */
+    /* position: relative; */
+}
+
+/* .title-container h1,
+.title-container .subtitle {
+    margin: 0;
+}
+
+.title-container .subtitle {
+    color: var(--light-text);
+} */
+
+/* Ensure language switcher stays on the right of the title block */
+.page-title-lang-switch {
+    position: absolute;
+    top: 25px; 
+    right: 0; /* Aligns the entire dropdown component to the right of .main-content's padding box */
+    /* left: auto; remove or let it be auto */
+    /* transform: none; remove or let it be auto */
+    z-index: 10;
+    width: auto; /* Ensure the container doesn't stretch unnecessarily */
+}
+
+/* 侧边栏深色风格 */
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    /* background: #18181c; */ /* Old background */
+    background: linear-gradient(180deg, #ffffe0, #add8e6); /* Pale yellow to light blue gradient */
+    color: var(--sidebar-text-color); /* Use new sidebar text color variable */
+    padding: 0;
+    box-shadow: var(--shadow);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.sidebar-menu {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--sidebar-text-color); /* Use new sidebar text color variable */
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+.sidebar-item.active, .sidebar-item:hover {
+    background: rgba(0, 0, 0, 0.1); /* Slight dark highlight on hover/active for light background */
+    color: var(--sidebar-text-color); /* Keep text black on hover/active */
+}
+.sidebar-item i {
+    font-size: 1.2rem;
+    color: var(--sidebar-text-color); /* Use new sidebar text color variable */
+}
+
+/* Styling for the anchor tag inside sidebar-item to make it fill the item */
+.sidebar-item a.sidebar-link {
+    display: flex; /* Align icon and text */
+    align-items: center;
+    gap: 12px; /* Same gap as .sidebar-item direct children */
+    padding: 12px 24px; /* Same padding as .sidebar-item */
+    color: inherit; /* Inherit color from .sidebar-item (which is #fff) */
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+/* Ensure hover/active states apply correctly, might need to target <a> or its parent */
+.sidebar-item:hover a.sidebar-link,
+.sidebar-item.active a.sidebar-link {
+    /* color: #ffd700; */ /* Color is already handled by .sidebar-item.active */
+}
+
+/* Specific styles for the Login button */
+.sidebar-item[data-tab="login"] {
+    padding: 0;
+    margin: 10px 16px 20px 16px;
+    /* To make it effectively narrower, we reduce its horizontal padding contribution via its child */
+}
+
+.sidebar-item[data-tab="login"]:hover {
+    background-color: rgba(0, 0, 0, 0.15); /* Darker highlight for login button */
+}
+
+.sidebar-item[data-tab="login"] a.sidebar-link {
+    padding: 6px 16px; /* Adjust padding to control perceived width and height */
+    justify-content: center; /* Center icon and text */
+    color: var(--sidebar-text-color); /* Ensure login button text is also black */
+}
+
+/* 主内容区白色背景 */
+.main-content {
+    flex: 1;
+    padding: 40px 40px 20px 40px;
+    background-color: var(--main-content-bg); /* Use new light white background */
+    /* backdrop-filter: blur(5px); */ /* Temporarily remove to debug particle visibility */
+    /* min-height: 100vh; */ /* Let content define height, body handles min-height */
+    overflow-y: auto; /* This should allow scrolling within main-content if its content overflows */
+    position: relative; /* Ensure stacking context */
+    z-index: 2; /* Above particles and body::before */
+}
+
+/* Style for direct children of .main-content that are content blocks */
+.main-content > .page-title-block,
+.main-content > #chat-section,
+.main-content > .reviews-section,
+.main-content > .rating-summary {
+    position: relative; /* Ensure stacking context */
+    z-index: 1;         /* Place above particles */
+}
+/* Note: .language-dropdown.page-title-lang-switch already has position: absolute and z-index: 10, so it's fine. */
+
+/* header只做右上角功能区 */
+header {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-right: 32px;
+    height: 60px;
+}
+
+/* 语言下拉菜单 */
+.language-dropdown {
+    position: relative;
+}
+
+.dropdown-btn {
+    display: flex; /* This should be correct */
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: none; /* Or var(--light-bg) if a slight bg is desired for the button itself */
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    /* opacity: 1; Ensure it is visible, should be default */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; 
+    left: 0;  
+    right: auto; 
+    background-color: #fff;
+    min-width: max-content; /* Let content determine min-width */
+    /* Or a fixed value like: min-width: 120px; */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    padding: 0.5rem 0;
+    margin-top: 0.25rem; 
+    z-index: 1100;
+}
+
+.language-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.lang-option {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.lang-option:hover {
+    background-color: #f5f5f5;
+}
+
+.lang-option.active {
+    color: #1a73e8;
+    font-weight: 500;
+}
+
+/* 主布局 */
+.main-layout {
+    display: flex;
+    flex: 1;
+    /* background-color: rgba(255, 255, 255, 0.05); */ /* Slight transparent background for content if needed */
+    /* backdrop-filter: blur(2px); */ /* Optional: blur background for readability */
+    position: relative;
+    z-index: 1;
+}
+
+.sidebar h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.capability-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.capability-item {
+    display: flex;
+    gap: 15px;
+}
+
+.capability-icon {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light-bg);
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+}
+
+.capability-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.capability-info p {
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+.achievement-summary {
+    margin-top: 30px;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.achievement-name {
+    width: 80px;
+    font-weight: 500;
+}
+
+.achievement-bar-container {
+    flex: 1;
+    height: 8px;
+    background-color: white;
+    border-radius: 4px;
+    margin: 0 10px;
+}
+
+.achievement-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 4px;
+}
+
+.achievement-value {
+    width: 50px;
+    text-align: right;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+/* 聊天区域样式 */
+.chat-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 60px;
+}
+
+.chat-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative; 
+    overflow: hidden; /* Important for child's max-height to work with flex */
+    width: 100%; 
+    min-height: 500px; /* Customizable: Initial minimum height */
+    max-height: 900px; /* Customizable: Maximum height before messages scroll */
+    transition: height 0.3s ease-in-out; /* Optional: smooth height transition */
+}
+
+.chat-messages {
+    flex-grow: 1; /* Allow this to take up available space */
+    overflow-y: auto; /* Show scrollbar when content exceeds its height */
+    padding: 20px; 
+}
+
+.message {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    margin-bottom: 15px;
+    max-width: 85%; /* Messages don't take full width */
+}
+
+.message.user-message {
+    flex-direction: row-reverse; /* Key for placing avatar on the right */
+    margin-left: auto; /* Align user messages to the right of the container */
+    /* .user-message specific styles from L408 if any should be preserved or merged */
+}
+
+.message.ai-message {
+    flex-direction: row; /* Default, avatar on the left */
+    margin-right: auto; /* Align AI messages to the left of the container */
+     /* .ai-message specific styles from L594 if any should be preserved or merged */
+}
+
+/* Specific styling for user-uploaded images within a user message */
+.message.user-message.image-message-wrapper {
+    /* Inherits flex-direction: row-reverse from .message.user-message */
+    /* Add any specific wrapper styles if needed, but general layout is handled by .message.user-message */
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0; /* Prevent avatar from shrinking */
+}
+
+.message.user-message .avatar {
+    margin-left: 12px; /* Space between user's content and avatar (on the right) */
+    margin-right: 0;
+}
+
+.message.ai-message .avatar {
+    margin-right: 12px; /* Space between AI's avatar (on the left) and content */
+    margin-left: 0;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.message-content {
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 55%; /* Set a max-width for message bubbles */
+    word-wrap: break-word;
+    border: 1px solid transparent; /* Default border, might be overridden */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Add a subtle shadow */
+}
+
+.ai-message .message-content {
+    /* Specific styles for AI messages to make them more distinct */
+    background-color: #f8f9fa; /* A slightly off-white background, distinct from page bg */
+    border: 1px solid #e9ecef;   /* A light grey border */
+    /* Optional: slightly more pronounced shadow for AI messages if desired */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); */ 
+}
+
+.user-message .message-content {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    padding: 10px 15px; /* Adjusted padding */
+    background-color: white;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    gap: 10px; /* Add gap between elements */
+}
+
+.chat-upload-btn {
+    width: 44px; /* Slightly smaller */
+    height: 44px; /* Slightly smaller */
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    color: var(--primary-color);
+    /* margin-right: 10px; Removed, using gap on parent */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem; /* Adjusted icon size */
+    border: 1px solid var(--border-color);
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.chat-upload-btn:hover {
+    background-color: #e9e9e9;
+    border-color: #ccc;
+}
+
+.chat-input textarea {
+    flex-grow: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 22px; /* Rounded to match button height */
+    padding: 12px 18px; /* Adjusted padding */
+    font-size: 1rem;
+    resize: none;
+    min-height: 44px; /* Match button height */
+    max-height: 150px;
+    overflow-y: auto;
+    line-height: 1.4; /* Adjusted line height */
+    background-color: #fff;
+    outline: none;
+    font-family: inherit;
+    height: 44px; /* Initial height, can grow with content up to max-height */
+}
+
+#sendButton { /* Targeting by ID */
+    width: 44px; /* Slightly smaller */
+    height: 44px; /* Slightly smaller */
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    /* margin-left: 10px; Removed, using gap on parent */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Prevent shrinking */
+    font-size: 1.1rem; /* For icon inside if any */
+}
+
+#sendButton:hover {
+    background-color: var(--secondary-color);
+}
+
+/* 场景按钮 */
+.scenarios {
+    padding: 20px 0;
+}
+
+.scenario-buttons {
+    /* padding: 20px 0; */ /* Original padding, can be adjusted or overridden by h3 margin */
+    /* margin-bottom: 20px; */ /* This was likely for space below the whole section */
+}
+
+.scenario-buttons h3 {
+    /* data-i18n="scenarios-title" */
+    margin-top: 30px;
+    text-align: center; /* Assuming you want the title centered */
+    font-size: 1.6rem; /* Or your preferred size */
+    color: var(--text-color); /* Or your preferred color */
+    margin-bottom: 30px; /* Increased space between title and button grid */
+}
+
+.scenarios h3 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+    color: #444;
+    font-weight: 600;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Changed from 3 to 4 columns */
+    gap: 20px;
+    justify-content: center;
+}
+
+.scenario-btn {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    color: #343a40;
+    padding: 20px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 140px;
+    width: 100%;
+    max-width: 400px; /* As per user's latest direct change */
+}
+
+.scenario-emoji {
+    font-size: 2.2em;
+    margin-bottom: 12px;
+}
+
+.scenario-title-text {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.scenario-desc {
+    font-size: 0.85rem;
+    color: #5f6368;
+    line-height: 1.4;
+}
+
+.scenario-btn:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+}
+
+.scenario-btn.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* When active, description color might also need to change for contrast */
+.scenario-btn.active .scenario-desc {
+    color: #e0e0e0; /* Lighter description when button is active */
+}
+.scenario-btn.active .scenario-title-text {
+    color: #fff; /* Ensure title text is white when active */
+}
+
+
+
+/* 整体AI消息的容器 - 适用于所有AI消息 */
+.message.ai-message {
+    display: flex; /* Keep this for avatar and content alignment */
+    align-items: flex-start;
+    margin-bottom: 15px; /* Or your existing margin */
+    max-width: 75%; /* Default max-width for normal AI text messages */
+    /* Remove any fixed width if previously set here, allow content to define it up to max-width */
+}
+
+/* AI图片消息的特定容器 - 让它可以更宽 */
+.message.ai-message.image-message-wrapper {
+    max-width: 75%; /* 允许图片消息比普通文本消息更宽，例如85%或90% */
+    /* 或者如果您希望它几乎占满，可以尝试更大的百分比，但要注意不要太宽影响整体布局 */
+}
+
+/* AI消息的内容区域 - 适用于所有AI消息 */
+.message.ai-message .message-content {
+    background-color: #F5F5F5; /* Or your existing AI message background */
+    color: #272a30; /* Or your existing AI message text color */
+    border-radius: 8px;  /* Default border radius */
+    /* box-shadow: 0 1px 2px rgba(0,0,0,0.1); /* Optional shadow */
+    word-wrap: break-word; /* Ensure long text wraps */
+    overflow-wrap: break-word; /* Ensure long text wraps */
+    margin-left: 10px; /* Space between avatar and message bubble */
+    flex-grow: 1; /* Allow content to take available space */
+    min-width: 0; /* Important for flex items that might otherwise overflow */
+}
+
+.message.ai-message.image-message-wrapper .message-content {
+    /* 确保内容区域可以包含图片，并且不会有不必要的内边距挤压图片 */
+    padding: 5px; /* 可以根据您的设计调整 */
+    background-color: transparent; /* 图片消息的内容区背景通常是透明的，让图片容器自己带背景 */
+    display: flex; /* 使用flex可以帮助对齐 */
+    justify-content: flex-start; /* 图片靠左对齐 */
+    display: flex; /* 使内部的 .image-result-container 能正确填充 */
+    overflow: hidden; /* 确保如果图片意外过大，不会撑破整体布局 */
+    width: 100%;
+}
+
+/* 图片外层容器，可以用来控制最大宽度和边距等 */
+.image-result-container {
+    width: 100%; /* 图片容器占满 message-content 的宽度 */
+    max-width: 100%; /* 图片容器最大占AI消息宽度的80%，您可以调整这个百分比 */
+    /* 或者使用一个固定的最大像素值，例如 max-width: 400px; */
+    margin-bottom: 5px; /* 图片与AI头像/文字的间距 */
+    border-radius: 8px; /* 给图片容器加个圆角，可选 */
+    overflow: hidden; /* 如果图片本身有圆角，确保容器也裁剪 */
+    background-color: #f0f0f0; /* 给图片一个浅色背景，可选 */
+    padding: 1px; /* 图片与容器边框的微小间距，可选 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 轻微的阴影效果，可选 */
+    line-height: 0; /* 帮助去除图片下可能出现的微小空隙 */
+}
+
+/* 生成的图片本身 */
+.generated-image {
+    display: block; /* 确保图片是块级元素，避免底部多余空隙 */
+    width: 100%;    /* 图片宽度占满其父容器 (image-result-container) */
+    height: auto;   /* 高度自动，保持图片的原始纵横比 */
+    max-height: 500px; /* 您可以设置一个最大高度，例如450px，防止图片过长 */
+    object-fit: cover;  /* 关键：图片将覆盖整个容器，保持宽高比，可能会裁剪 */
+    /* 如果希望图片裁剪以填充容器，可以使用 object-fit: cover; 但可能会裁掉部分图片 */
+    border-radius: 6px; /* 给图片本身加个圆角，如果容器也有圆角且padding为0，这个可以省略 */
+}
+
+/* 确保AI头像和内容区域在图片消息中正确排列 */
+.message.ai-message.image-message-wrapper {
+    align-items: flex-start; /* 头像和内容顶部对齐 */
+}
+
+/* 用户评价区域样式 */
+.reviews-section {
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.reviews-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.review-filter {
+    display: flex;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background-color: var(--light-bg);
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.review-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    transition: var(--transition);
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.reviewer {
+    display: flex;
+}
+
+.reviewer img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.reviewer-info h4 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.rating {
+    color: #ffc107;
+}
+
+.review-date {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+.review-content {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.review-tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background-color: var(--light-bg);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+/* 页脚样式 */
+footer {
+    background-color: var(--light-bg);
+    padding: 20px 0;
+    text-align: center;
+    color: var(--light-text);
+    width: 100%;
+    z-index: 100;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .main-layout {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        margin-bottom: 20px;
+    }
+    
+    .capability-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .nav-links {
+        margin-bottom: 15px;
+    }
+    
+    .language-dropdown {
+        align-self: flex-start;
+    }
+    
+    .capability-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .reviews-container {
+        grid-template-columns: 1fr;
+    }
+    
+    :root {
+        --chat-height: 400px; /* 在小屏幕上减小聊天高度 */
+    }
+
+    .main-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .sidebar-menu {
+        display: flex;
+        justify-content: space-around;
+        padding: 0.5rem 0;
+    }
+
+    .sidebar-item i {
+        margin-right: 0.25rem;
+    }
+
+    .sidebar-item span {
+        /* display: none; */ /* Re-enable if icons alone are preferred on mobile */
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .chat-container {
+        height: 60vh; /* Adjust for mobile */
+    }
+
+    .page-title-block {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .language-dropdown {
+        position: static;
+        margin-top: 0.5rem;
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 576px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .message-content {
+        max-width: 75%;
+    }
+}
+
+.center-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* 综合评分样式 */
+.rating-summary {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 30px;
+    background-color: #f8f9fa; /* Light background for the section */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.rating-summary h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.rating-overview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content: center; /* Center items if they wrap */
+}
+
+.overall-rating {
+    text-align: center;
+    min-width: 200px; /* Ensure some space */
+}
+
+.rating-number {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #4285f4; /* Primary color */
+    line-height: 1;
+}
+
+.rating-stars {
+    color: #ffc107; /* Gold color for stars */
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.rating-count {
+    color: #5f6368; /* Light text color */
+    font-size: 0.9rem;
+}
+
+.rating-breakdown {
+    flex: 1;
+    min-width: 300px; /* Minimum width before wrapping */
+    max-width: 500px; /* Max width */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.rating-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.rating-label {
+    width: 100px; /* Fixed width for labels */
+    font-size: 0.9rem;
+    color: #5f6368;
+    text-align: right;
+}
+
+.rating-bar-container {
+    flex: 1;
+    height: 10px;
+    background-color: #e0e0e0; /* Light grey background for bar */
+    border-radius: 5px;
+    overflow: hidden; /* Ensure bar stays within bounds */
+}
+
+.rating-bar {
+    height: 100%;
+    background-color: #4285f4; /* Primary color for the bar */
+    border-radius: 5px;
+    transition: width 0.5s ease-out;
+}
+
+.rating-value {
+    width: 30px; /* Fixed width for value */
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+}
+
+/* Capabilities Page Specific Styles */
+.capabilities-section {
+    margin-bottom: 40px;
+}
+.capabilities-section h2 {
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+/* Ensure H2 titles within capabilities sections are centered */
+.capabilities-section > h2 {
+    text-align: center;
+}
+
+.achievement-cards, .capability-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+.achievement-card, .capability-card {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+/* Highlighted state for cards - NOW ON HOVER */
+.achievement-card:hover,
+.capability-card:hover {
+    transform: scale(1.04) translateY(-6px); /* Pop effect */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12); /* Enhanced shadow */
+    border-color: var(--primary-color); /* Highlight border */
+}
+
+.achievement-icon, .capability-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+/* Color for achievement icons in capabilities page */
+.achievement-cards .achievement-card:nth-child(1) .achievement-icon {
+    color: #4285F4; /* Google Blue */
+}
+.achievement-cards .achievement-card:nth-child(2) .achievement-icon {
+    color: #DB4437; /* Google Red */
+}
+.achievement-cards .achievement-card:nth-child(3) .achievement-icon {
+    color: #0F9D58; /* Google Green */
+}
+
+.achievement-card h3, .capability-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+.achievement-card p, .capability-card p {
+    font-size: 0.9rem;
+    color: #5f6368;
+    line-height: 1.6;
+}
+
+.comparison-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden; /* Ensures border radius applies to table */
+}
+
+.comparison-table th, .comparison-table td {
+    border: 1px solid #e0e0e0;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.comparison-table thead {
+    background-color: #f8f9fa;
+}
+
+.comparison-table th {
+    font-weight: 600;
+    color: #333;
+}
+
+.comparison-table tbody tr:nth-child(even) {
+    background-color: #fdfdfd;
+}
+
+.comparison-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Marquee Review Styles */
+.marquee-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.marquee-row {
+    display: flex;
+    width: fit-content; /* Allow it to be as wide as its content */
+    will-change: transform;
+}
+
+.marquee-row:hover {
+    animation-play-state: paused !important; /* Important to override animation */
+}
+
+/* Ensure review cards in marquee have a fixed width and some margin */
+.marquee-row .review-card {
+    flex-shrink: 0; /* Prevent cards from shrinking */
+    width: 320px; /* Or your preferred fixed width for cards in marquee */
+    margin-right: 20px;
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.1); Optional: consistent shadow */
+}
+
+/* Animation for the first row (left to right) */
+.marquee-row#review-row-1 {
+    animation: scrollLeft 60s linear infinite; /* Duration can be adjusted */
+}
+
+/* Animation for the second row (right to left) */
+.marquee-row#review-row-2 {
+    margin-top: 20px; /* Space between rows */
+    animation: scrollRight 60s linear infinite; /* Duration can be adjusted */
+}
+
+@keyframes scrollLeft {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); } /* Scroll one full set of original cards */
+}
+
+@keyframes scrollRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+}
+
+/* Side Fades */
+.marquee-container::before,
+.marquee-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10%; /* Adjust width of the fade */
+    z-index: 2;
+    pointer-events: none;
+}
+
+.marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, var(--background-color), transparent);
+}
+
+.marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, var(--background-color), transparent);
+}
+
+/* Responsive adjustments for marquee if needed */
+@media (max-width: 768px) {
+    .marquee-row .review-card {
+        width: 280px; /* Slightly smaller cards on smaller screens */
+    }
+    .marquee-container::before,
+    .marquee-container::after {
+        width: 15%; /* Wider fade on smaller screens */
+    }
+}
+
+/* Sub-Prompts Container */
+.sub-prompts-container {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Allow prompts to wrap */
+    gap: 10px;
+    justify-content: center; /* Center prompts if they wrap */
+    align-items: center;
+    min-height: 40px; /* Reserve some space even when empty */
+}
+
+.sub-prompt-btn {
+    padding: 8px 15px;
+    background-color: #e8f0fe; /* Light blue background */
+    color: var(--primary-color);
+    border: 1px solid #d2e3fc;
+    border-radius: 20px; /* Pill shape */
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.sub-prompt-btn:hover {
+    background-color: #d2e3fc;
+    border-color: #adcaf7;
+    transform: translateY(-1px);
+}
+
+/* Add margin below the chat section (which contains scenarios) */
+#chat-section { /* Target the section containing scenarios and sub-prompts */
+    margin-bottom: 60px; /* Increased margin-bottom */
+}
+
+@keyframes shimmer-gradient {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.title-subtitle-group h1,
+.title-subtitle-group .subtitle {
+    background-image: linear-gradient(
+        -75deg,
+        #232323 30%,
+        #4285f4 50%,
+        #ea4335 60%,
+        #34a853 70%,
+        #232323 80%
+    );
+    background-size: 300% auto;
+    color: transparent; /* Make original text transparent */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent; /* For Safari/Chrome */
+    animation: shimmer-gradient 5s linear infinite;
+}
+
+.title-subtitle-group .subtitle {
+    animation-delay: 0.5s; /* Slight delay for subtitle if desired */
+    animation-duration: 6s; /* Slightly different speed for subtitle */
+    background-image: linear-gradient(
+        -75deg,
+        #5f6368 30%,
+        #4285f4 50%,
+        #ea4335 60%,
+        #34a853 70%,
+        #5f6368 80%
+    );
+    background-size: 300% auto; /* Ensure this is repeated */
+}
+
+/* Assign different colors to capability icons */
+.capability-grid .capability-card:nth-child(1) .capability-icon {
+    color: #009688; /* Vibrant Teal for Conversation icon */
+}
+.capability-grid .capability-card:nth-child(2) .capability-icon {
+    color: #FF9800; /* Bright Orange for Multimodal icon */
+}
+.capability-grid .capability-card:nth-child(3) .capability-icon {
+    color: #673AB7; /* Deep Purple for Coding icon */
+}
+.capability-grid .capability-card:nth-child(4) .capability-icon {
+    color: #E91E63; /* Vibrant Magenta for Creative icon */
+}
+
+/* Border Beam Animation - Corrected */
+.chat-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit; 
+    padding: 2px; /* Border thickness - adjusted */
+    background: conic-gradient(
+        from var(--gradient-angle, 0deg), /* Use CSS variable for angle */
+        transparent 0%, 
+        transparent 85%, /* Larger transparent section */
+        var(--primary-color) 90%, 
+        var(--accent-color) 95%, 
+        var(--primary-color) 100%
+    );
+    animation: spin-border-beam 6s linear infinite; /* Adjusted duration */
+    
+    /* Mask to show only the border */
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, /* Mask inner content */
+        linear-gradient(#fff 0 0); /* Mask outer container */
+    mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; /* Intersect to get border */
+    mask-composite: exclude; /* Standard property */
+    pointer-events: none; /* Ensure it doesn't block interactions */
+}
+
+@property --gradient-angle { /* Define CSS variable for animation */
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-border-beam {
+    0% { --gradient-angle: 0deg; }
+    100% { --gradient-angle: 360deg; }
+}
+
+/* Chat Messages - Ensure padding within chat container */
+.chat-messages {
+    flex-grow: 1; /* Allow this to take up available space */
+    overflow-y: auto; /* Show scrollbar when content exceeds its height */
+    padding: 20px; 
+}
+
+/* Styles for tabbed content sections */
+.content-section {
+    display: none; /* Default to hidden */
+}
+
+#chat-section.active {
+    display: flex; /* Chat section uses flex for its layout */
+    flex-direction: column;
+    /* gap: 20px; /* Add back if originally present and needed */
+}
+
+#capabilities-section.active {
+    display: block; /* Capabilities section can be block or flex as needed */
+}
+
+/* Ensure other main elements are on top */
+body > header,
+body > main,
+body > footer {
+    position: relative; /* or a higher z-index if needed, but relative should suffice with particles at -1 */
+    z-index: 1; /* Ensure content is above particles */
+}
+
+/* History List Styles */
+.history-list-container {
+    padding: 1rem;
+    overflow-y: auto; /* Add scroll if history is long */
+    height: calc(100% - 40px); /* Adjust based on other elements in sidebar-content-host */
+}
+
+.history-list-container h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    color: var(--text-color-dark);
+}
+
+.history-item {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--background-color-light);
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.history-item:hover {
+    background-color: var(--accent-color-light);
+}
+
+.history-item-title {
+    font-weight: 500;
+    color: var(--text-color-dark);
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.history-item-date {
+    font-size: 0.75rem;
+    color: var(--text-color-light);
+}
+
+.history-item.active-history {
+    background-color: var(--accent-color);
+    border-left: 3px solid var(--primary-color);
+}
+
+.history-item.active-history .history-item-title {
+    color: #fff; /* Or a contrasting color for active item title */
+}
+
+.history-item.active-history .history-item-date {
+    color: #f0f0f0; /* Or a contrasting color for active item date */
+}
+
+.message-content p {
+    margin-bottom: 0.5em; /* Add some space between paragraphs if there are multiple */
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Style for AI responses to allow them to be multi-paragraph */
+.message-content p.ai-multiline-response {
+    white-space: pre-wrap; /* Preserves newlines and spaces, wraps text */
+    word-wrap: break-word; /* Ensures long words break and don't overflow */
+}
+
+.user-message .message-content {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Style for the new chat upload button */
+.chat-upload-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f0f0f0; /* Light grey, similar to input field potentially */
+    color: var(--primary-color);
+    margin-right: 10px; /* Space between upload and text area */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem; /* Icon size */
+    border: 1px solid var(--border-color);
+}
+
+.chat-upload-btn:hover {
+    background-color: #e9e9e9;
+    border-color: #ccc;
+}
+
+.chat-input textarea {
+    flex: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    resize: none;
+    height: 130px;
+    outline: none;
+    font-family: inherit;
+}
+
+/* Image Preview Styles */
+#imagePreviewContainer {
+    display: none; /* Hidden by default, shown by JS */
+    position: relative; /* For positioning the remove button */
+    margin: 0 8px 8px 8px; /* Margin around the container, adjust as needed */
+    /* Or margin-bottom if you want it above the textarea entirely */
+    /* margin-bottom: 8px; */
+    padding: 5px;
+    background-color: #f0f0f0;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    max-width: 150px; /* Max width of the preview container */
+}
+
+#imagePreviewSrc {
+    max-width: 100%; /* Image scales within its container */
+    max-height: 100px; /* Limit preview image height */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 4px;
+    display: block; /* Remove extra space below image */
+}
+
+.remove-preview-btn {
+    position: absolute;
+    top: -5px; /* Adjust for exact positioning */
+    right: -5px; /* Adjust for exact positioning */
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px; /* Center the 'X' */
+    text-align: center;
+    cursor: pointer;
+    padding: 0;
+    display: flex; /* For centering content if needed */
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-preview-btn:hover {
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+/* Styles for user-uploaded images in chat */
+/* This rule seems to be for the container within the message content. */
+/* Ensure its parent .message.user-message handles the overall layout (avatar on right) */
+.message.user-message .image-result-container.user-uploaded-image-container {
+    max-width: 300px; /* Or your preferred max width, e.g., 40%, 250px */
+    /* max-height: 300px; */ /* Optional: also constrain max height */
+    /* margin-left: 0; */ /* This might be overridden by flex properties of parent */
+    /* margin-right: auto; */ /* This might be overridden by flex properties of parent */
+    border-radius: 8px; /* Match bubble style */
+    overflow: hidden; /* Ensure image stays within rounded corners */
+}
+
+.message.user-message .user-uploaded-image-container .generated-image {
+    display: block; /* Remove extra space below image */
+    width: 100%;    /* Make image fill its container's width */
+    height: auto;   /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure whole image is visible, scaled down if needed */
+    border-radius: 6px; /* Slightly smaller radius than container if container has padding */
+}
+
+/* Ensure AI generated images also have a reasonable max-width if not already set */
+
+/* Styles for the restored sidebar login button */
+.login-button-style {
+    background-color: rgba(0,0,0,0.05) !important; /* Very light background for the button itself */
+    color: var(--sidebar-text-color) !important; /* Black text, important to override other link styles */
+    border: 1px solid rgba(0,0,0,0.1); /* Subtle border */
+    border-radius: 8px;
+    padding-top: 10px !important; /* Ensure consistent padding */
+    padding-bottom: 10px !important; /* Ensure consistent padding */
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin: 0; /* MODIFIED from 8px 16px */
+    display: block; /* Make it a block to control margin/padding correctly */
+    text-align: center;
+}
+
+.login-button-style:hover {
+    background-color: rgba(0,0,0,0.1) !important; /* Slightly darker on hover */
+}
+
+
+#imageSizeSelect {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    margin-top: 5px; /* Or adjust as per your layout */
+    /* Add other styles as needed */
+}
+
+/* Styles for Image Aspect Ratio Selector */
+.image-aspect-ratio-selector {
+    display: flex;
+    /* justify-content: space-around; */ /* Changed from space-around */
+    justify-content: center; /* Center the buttons */
+    gap: 10px; /* Space between buttons */
+    align-items: center;
+    padding: 10px 20px; /* Align padding with chat-input (horizontally) */
+    /* margin-bottom: 10px; */ /* Removed, as it's now above chat-input */
+    border-top: 1px solid var(--border-color); /* Add top border, similar to chat-input */
+    background-color: #fff; /* Match chat-input background */
+}
+
+.aspect-ratio-btn {
+    background-color: #ffffff; /* White background */
+    color: #333333; /* Darker text for better contrast on white */
+    border: 1px solid #dcdcdc; /* Slightly softer border */
+    padding: 6px 12px; /* Slightly reduced padding */
+    border-radius: 6px; /* Slightly smaller radius */
+    cursor: pointer;
+    font-size: 0.85em; /* Slightly smaller font */
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.aspect-ratio-btn:hover {
+    background-color: #f5f5f5;
+    border-color: #c0c0c0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.aspect-ratio-btn.active {
+    background-color: var(--primary-color); /* Use primary color for active */
+    color: #ffffff;
+    border-color: var(--primary-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.chat-input {
+/* ... existing code ... */
+}
+
+/* Styles for Image Aspect Ratio Controls Container */
+#imageControlsContainer {
+    display: none; /* Controlled by JS */
+    flex-direction: column; 
+    align-items: center; 
+    padding: 10px 20px; /* Keep some padding for spacing */
+    background-color: #fff; 
+}
+
+/* Styles for Image Aspect Ratio Selector (the group of 5 buttons) */
+.image-aspect-ratio-selector {
+    display: flex; /* Should be flex by default when shown by JS */
+    align-items: center;
+    width: 100%; 
+    padding: 5px 0; 
+    /* position: relative; */ /* No longer needed for close button */
+}
+
+/* Container for the 5 aspect ratio buttons to center them and distribute */
+.aspect-ratio-buttons-wrapper {
+    display: flex;
+    /* justify-content: center; */ /* Changed to space-around */
+    justify-content: space-around; /* Distribute buttons evenly */
+    flex-grow: 1; 
+    gap: 8px; /* Keep small gap between buttons if space-around isn't enough */
+    width: 100%; /* Ensure wrapper takes full width */
+}
+
+.aspect-ratio-btn {
+    background-color: #ffffff; 
+    color: #333333; 
+    border: 1px solid #dcdcdc; 
+    padding: 6px 12px; 
+    border-radius: 6px; 
+    cursor: pointer;
+    font-size: 0.85em; 
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    flex-grow: 1; /* Allow buttons to grow and fill space with space-around */
+    text-align: center;
+}
+
+.chat-input {
+/* ... existing code ... */
+}
+
+.footer-top-line {
+    display: flex;
+    justify-content: center; /* 居中对齐 */
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #3a3a5e;
+    padding-bottom: 10px;
+    flex-wrap: wrap; /* 在小屏幕上允许换行 */
+}
+
+.footer-top-line a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+.footer-top-line a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom-line {
+    display: flex;
+    justify-content: center; /* 居中对齐 */
+    align-items: center;
+    gap: 25px;
+    font-size: 14px;
+    flex-wrap: wrap; /* 在小屏幕上允许换行 */
+}
+
+.footer-bottom-line a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+.footer-bottom-line a:hover {
+    text-decoration: underline;
+}
+
+.site-footer p {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.site-footer p:last-child {
+    margin-bottom: 0;
+}
+.site-footer {
+    padding: 20px;
+    /* background-color: rgba(10, 15, 26, 0.8); */ /* Dark, slightly transparent */
+    background: linear-gradient(135deg, #e0f0e0, #d0d0d5); /* Light green to gray gradient */
+    color: #333; /* Darker text for better contrast on light gradient */
+    border-top: 1px solid #c0c0c5; /* Lighter border for light gradient */
+    width: 100%; 
+    flex-shrink: 0;
+    text-align: center;
+    position: relative;
+    z-index: 5; /* Above particles and body background effects */
+}
+
+.site-footer .footer-top-line p,
+.site-footer .footer-top-line a,
+.site-footer .footer-bottom-line p,
+.site-footer .footer-bottom-line a {
+    color: #333; /* Darker text for footer links/text on light gradient */
+    font-size: 0.85rem;
+    text-decoration: none;
+    margin: 0; /* Remove default margins if any */
+}
+.site-footer .footer-top-line a:hover,
+.site-footer .footer-bottom-line a:hover {
+    text-decoration: underline;
+    color: #0056b3; /* Slightly darker blue for hover on light background */
+}

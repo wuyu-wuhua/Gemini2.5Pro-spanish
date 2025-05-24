@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="registerTitle">Registrado - Gemini 2.5 Pro</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="alternate" hreflang="es" href="http://www.erlinmall.com"/>
+    <link rel="icon" type="image/png" href="images/制作网站图标.png">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--background-color, #f0f0f0);
+            padding: 0;
+        }
+        main.auth-main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+        .register-container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow, 0 5px 15px rgba(0,0,0,0.1));
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .register-container h1 {
+            color: var(--primary-color, #4285f4);
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+        .register-form input[type="text"],
+        .register-form input[type="email"],
+        .register-form input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color, #dadce0);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        .register-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color, #4285f4);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .register-form button:hover {
+            background-color: var(--secondary-color, #34a853);
+        }
+        .google-login-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #ffffff;
+            color: #4285F4;
+            border: 1px solid #dadce0;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .google-login-btn:hover {
+            background-color: #f8f9fa;
+            box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15);
+        }
+        .register-container .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--light-text, #5f6368);
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        .register-container .separator::before,
+        .register-container .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color, #dadce0);
+        }
+        .register-container .separator:not(:empty)::before {
+            margin-right: .5em;
+        }
+        .register-container .separator:not(:empty)::after {
+            margin-left: .5em;
+        }
+        .register-container .login-link,
+        .register-container .back-link {
+            display: block;
+            color: var(--primary-color, #4285f4);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+         .register-container .back-link {
+            margin-top: 10px;
+        }
+        .register-container .login-link:hover,
+        .register-container .back-link:hover {
+            text-decoration: underline;
+        }
+        .site-footer {
+            background-color: #1e1e2d;
+            color: #a0a0b0;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+        .site-footer .footer-top-line,
+        .site-footer .footer-bottom-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 5px 0;
+        }
+        .site-footer .footer-top-line p,
+        .site-footer .footer-top-line a,
+        .site-footer .footer-bottom-line p,
+        .site-footer .footer-bottom-line a {
+            color: #a0a0b0;
+            font-size: 0.85rem;
+            text-decoration: none;
+            margin: 0;
+        }
+        .site-footer .footer-top-line a:hover,
+        .site-footer .footer-bottom-line a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <main class="auth-main-content">
+        <div class="register-container">
+            <h1 data-i18n="registerPageTitle">创建账户</h1>
+            <form class="register-form" id="registerForm">
+                <div>
+                    <input type="text" id="regUsername" name="username" placeholder="用户名" data-i18n-placeholder="usernameRegPlaceholder" required>
+                </div>
+                <div>
+                    <input type="email" id="regEmail" name="email" placeholder="邮箱地址" data-i18n-placeholder="emailRegPlaceholder" required>
+                </div>
+                <div>
+                    <input type="password" id="regPassword" name="password" placeholder="密码 (至少6位)" data-i18n-placeholder="passwordRegPlaceholder" required>
+                </div>
+                <div>
+                    <input type="password" id="regConfirmPassword" name="confirmPassword" placeholder="确认密码" data-i18n-placeholder="confirmPasswordPlaceholder" required>
+                </div>
+                <button type="submit" data-i18n="registerButtonText">注册</button>
+            </form>
+
+            <div class="separator" data-i18n="orSeparator">或</div>
+
+            <div id="google-login-container" style="margin-bottom: 20px; margin-top: 20px;"></div>
+
+            <a href="login.html" class="login-link" data-i18n="alreadyAccountPrompt">已有账户？点击登录</a>
+            <a href="index.html" class="back-link" data-i18n="backToHome">返回首页</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-top-line">
+            <a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow" data-translate-key="icpRecord">渝ICP备2025053179号</a>
+            <p><span data-translate-key="contactUs">联系我们</span>: ytsgabcde37@2925.com</p>
+        </div>
+        <div class="footer-bottom-line">
+            <a data-translate-key="copyrightText">内容由AI生成，无法确保真实准确，仅供参考.</a>
+            <a href="privacy-policy.html" data-translate-key="privacyPolicy">个人信息保护规则</a>
+        </div>
+    </footer>
+    
+    <script src="js/translations.js"></script>
+    <script>
+        function applyRegisterPageTranslations() {
+            const currentLang = localStorage.getItem('language') || 'ru';
+            if (typeof translations !== 'undefined' && translations[currentLang]) {
+                const trans = translations[currentLang];
+                document.querySelectorAll('[data-i18n], [data-translate-key]').forEach(el => {
+                    const key = el.getAttribute('data-i18n') || el.getAttribute('data-translate-key');
+                    if (trans[key]) {
+                        // Handle footer translations specifically
+                        if (el.tagName === 'SPAN' && el.parentElement.classList.contains('footer-top-line') && key === 'contactUs') {
+                             el.textContent = trans[key];
+                        } else if (el.tagName === 'A' && (el.parentElement.classList.contains('footer-top-line') || el.parentElement.classList.contains('footer-bottom-line'))) {
+                            el.textContent = trans[key];
+                        // Handle google button text
+                        } else if (el.classList.contains('google-login-btn') && el.querySelector('span')) {
+                            el.querySelector('span').textContent = trans[key];
+                        // General case for other elements, avoid overriding elements with complex children unless specifically handled
+                        } else if (!el.querySelector('span')) { 
+                            el.textContent = trans[key];
+                        }
+                    }
+                });
+                document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-i18n-placeholder');
+                    if (trans[key]) {
+                        el.placeholder = trans[key];
+                    }
+                });
+                const titleElement = document.querySelector('title');
+                if (titleElement) {
+                    const titleKey = titleElement.getAttribute('data-i18n');
+                    if (titleKey && trans[titleKey]) {
+                        document.title = trans[titleKey];
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyRegisterPageTranslations();
+        });
+    </script>
+    <script type="text/babel">
+      const App = () => {
+        const handleGoogleLogin = () => {
+          // 1. The URL of the current frontend page, which will receive the callback
+          const callbackUrl = encodeURIComponent(window.location.href);
+
+          // 2. Your domain registered with aa.jstang.cn
+          //    This should be your main public domain, e.g., erlinmall.com
+          //    It's important this matches what aa.jstang.cn expects.
+          const registeredDomain = encodeURIComponent('erlinmall.com'); // Using 'erlinmall.com' as per previous context
+
+          // 3. Middle platform base URL
+          const middlePlatformBaseUrl = 'https://aa.jstang.cn/google_login.php';
+
+          // 4. Construct the target URL for aa.jstang.cn
+          //    'url' is your registered domain.
+          //    'redirect_uri' is where aa.jstang.cn will send the user back WITH Google info.
+          const targetUrl = `${middlePlatformBaseUrl}?url=${registeredDomain}&redirect_uri=${callbackUrl}`;
+
+          // 5. Redirect to the middle platform
+          window.location.href = targetUrl;
+        };
+
+        React.useEffect(() => {
+          const url = window.location.href;
+          if (url.includes('google_id=')) {
+            const params = new URLSearchParams(window.location.search);
+            
+            const googleId = params.get('google_id');
+            const name = params.get('name');
+            const email = params.get('email');
+            const picture = params.get('picture');
+            
+            if (googleId) {
+              localStorage.setItem('google_id', googleId);
+              if (name) localStorage.setItem('name', name);
+              if (email) localStorage.setItem('email', email);
+              // Only store picture if it's a non-empty string
+              if (picture && picture.trim() !== '') {
+                localStorage.setItem('picture', picture);
+              } else {
+                // If picture is null, undefined, or empty, remove it from localStorage
+                localStorage.removeItem('picture');
+              }
+              
+              const tokenData = { googleId, name, email, picture }; // Include picture in token
+              const token = btoa(JSON.stringify(tokenData));
+              localStorage.setItem('token', token);
+              localStorage.setItem('isUserLoggedIn', 'true'); // Mark user as logged in
+
+              // Clean the URL by removing query parameters
+              const cleanUrl = window.location.origin + window.location.pathname;
+              window.history.replaceState({}, document.title, cleanUrl);
+              
+              // Redirect to the main application page (index.html)
+              window.location.href = 'index.html'; 
+            }
+          }
+        }, []); // Empty dependency array, so it runs once on component mount
+
+        return (
+          <button onClick={handleGoogleLogin} style={{ width: '100%', padding: '12px', color: '#4285F4', border: '1px solid #dadce0', borderRadius: '8px', fontSize: '1rem', cursor: 'pointer', transition: 'background-color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', backgroundColor: '#ffffff', boxShadow: '0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)' }}>
+            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" style={{ marginRight: '8px', height: '20px' }} />
+            <span data-i18n="continueWithGoogle">Daŭrigu kun Guglo</span>
+          </button>
+        );
+      };
+
+      ReactDOM.render(<App />, document.getElementById('google-login-container'));
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const particleContainer = document.createElement('div');
+        particleContainer.classList.add('particles');
+        document.body.appendChild(particleContainer);
+        const numParticles = 100; // 气泡数量
+
+        for (let i = 0; i < numParticles; i++) {
+            let particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.bottom = `${Math.random() * 100 - 50}%`; 
+            const size = Math.random() * 20 + 10; 
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            const duration = Math.random() * 8 + 5; 
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${Math.random() * duration}s`; 
+            particle.style.setProperty('--drift', `${(Math.random() - 0.5) * 15}vw`); 
+            particleContainer.appendChild(particle);
+
+            particle.addEventListener('mouseover', () => {
+                particle.style.transform = 'scale(1.5) translateY(-10px)';
+                particle.style.opacity = '0.8';
+            });
+
+            particle.addEventListener('mouseout', () => {
+                particle.style.transform = ''; 
+                particle.style.opacity = '';   
+            });
+        }
+
+        const canvasNestScript = document.querySelector('script[src*="canvas-nest.js"]');
+        if (canvasNestScript) {
+            canvasNestScript.remove();
+        }
+    });
+    </script>
+</body>
+</html> 

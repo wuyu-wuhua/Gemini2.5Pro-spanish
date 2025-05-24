@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="htmlTitle">Gemini 2.5 Profesia Ĉina Versio | Altrapida hejma aliro kaj AI-modela ŝarĝo</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="alternate" hreflang="es" href="http://www.erlinmall.com"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/制作网站图标.png">
+</head>
+<body>
+    <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js" opacity="0.8" count="80" zIndex="-1"></script>
+    <header>
+        <!-- THIS HEADER IS EMPTY -->
+    </header>
+
+    <main>
+        <div class="main-layout">
+            <aside class="sidebar">
+                <!-- User Authentication Section -->
+                <div id="user-auth-section" class="sidebar-item" style="display: none;">
+                    <!-- Content will be populated by js/main.js -->
+                </div>
+                
+                <!-- Restored Login Button -->
+                <div class="sidebar-item" data-tab="login">
+                    <a href="login.html" class="sidebar-link login-button-style">
+                        <i class="fas fa-arrow-right-to-bracket"></i> <!-- Changed icon to match image better -->
+                        <span data-i18n="menu-login">点击登录</span>
+                    </a>
+                </div>
+
+                <!-- ENSURE NO LANGUAGE SWITCHER HERE -->
+                <div class="sidebar-menu">
+                    <!-- <div class="sidebar-item" data-tab="login">
+                        <a href="login.html" class="sidebar-link">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span data-i18n="menu-login">点击登录</span>
+                        </a>
+                    </div> --> <!-- Original login link commented out/removed -->
+                    <div class="sidebar-item active" data-tab="chat">
+                        <i class="fas fa-comments"></i>
+                        <span data-i18n="menu-chat">对话</span>
+                    </div>
+                    <div class="sidebar-item" data-tab="newchat">
+                        <i class="fas fa-plus-circle"></i>
+                        <span data-i18n="menu-newchat">新建对话</span>
+                    </div>
+                    <div class="sidebar-item" data-tab="history">
+                        <i class="fas fa-history"></i>
+                        <span data-i18n="menu-history">历史对话</span>
+                    </div>
+                    <div class="sidebar-item" data-tab="capabilities">
+                        <i class="fas fa-lightbulb"></i>
+                        <span data-i18n="menu-capabilities">核心功能</span>
+                    </div>
+                </div>
+                <div class="sidebar-content-host">
+                    <!-- This is where the content for "核心功能" (old capabilities.html) will be shown -->
+                    <!-- Verify NO language switcher is part of this templated content -->
+                </div>
+            </aside>
+
+            <div class="main-content">
+                <!-- THIS IS THE ONLY LANGUAGE SWITCHER THAT SHOULD EXIST -->
+
+                <div class="page-title-block">
+                    <!-- Title and Subtitle Group -->
+                    <div class="title-subtitle-group">
+                        <h1 data-i18n="main-title">Gemini 2.5 Pro 中文版</h1>
+                        <p class="subtitle" data-i18n="subtitle">GEMINI模型-Gemini 2.5 Pro最新版-在线体验</p>
+                    </div>
+                </div>
+                
+                <!-- 对话区域 -->
+                <section class="content-section active" id="chat-section">
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Initial welcome message -->
+                            <div class="message ai-message">
+                                <div class="avatar">
+                                    <img src="images/AI.png" alt="Gemini" onerror="this.src='https://placehold.co/40x40?text=G'">
+                                </div>
+                                <div class="message-content">
+                                    <p data-i18n="welcome-message">你好！我是 Gemini 2.5 Pro，有什么我可以帮助你的吗？</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Main container for all image size controls -->
+                        <div id="imageControlsContainer" style="display: none;"> 
+                            <!-- <button id="imageSizeMasterBtn" class="master-aspect-ratio-toggle-btn">图片尺寸</button> NO LONGER NEEDED -->
+                            <div class="image-aspect-ratio-selector" style="display: flex;"> <!-- Ensure this is flex by default when parent is shown -->
+                                <div class="aspect-ratio-buttons-wrapper"> 
+                                    <button class="aspect-ratio-btn" data-ratio="1:1">1:1</button>
+                                    <button class="aspect-ratio-btn" data-ratio="4:3">4:3</button>
+                                    <button class="aspect-ratio-btn" data-ratio="3:4">3:4</button>
+                                    <button class="aspect-ratio-btn" data-ratio="16:9">16:9</button>
+                                    <button class="aspect-ratio-btn" data-ratio="9:16">9:16</button>
+                                </div> 
+                                <!-- <button id="closeAspectRatioOptionsBtn" class="close-options-btn">返回</button> NO LONGER NEEDED -->
+                            </div>
+                        </div>
+
+                        <div class="chat-input">
+                            <input type="file" id="imageUploadInput" accept="image/*" style="display: none;">
+                            <button type="button" id="uploadImageBtn" class="chat-upload-btn" data-i18n-title="uploadImageTooltip">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <div id="imagePreviewContainer" style="display: none;">
+                                <img id="imagePreviewSrc" src="#" alt="Image preview" />
+                                <button id="removeImagePreviewBtn" class="remove-preview-btn">&times;</button>
+                            </div>
+                            <textarea id="userInput" placeholder="输入问题..." data-i18n-placeholder="input-placeholder"></textarea>
+                            <button id="sendButton"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                    <!-- 预设提示区域放在对话框下方 -->
+                    <div class="scenarios">
+                        <h3 data-i18n="scenarios-title">使用场景</h3>
+                        <div class="button-grid">
+                            <button class="scenario-btn" data-scenario="writing">
+                                <span class="scenario-emoji">✍️</span>
+                                <span class="scenario-title-text" data-i18n="scenario-writing">写作助手</span>
+                                <span class="scenario-desc" data-i18n="scenario-writing-desc">专业文案，一键生成</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="learning">
+                                <span class="scenario-emoji">🧑‍🏫</span>
+                                <span class="scenario-title-text" data-i18n="scenario-learning">学习导师</span>
+                                <span class="scenario-desc" data-i18n="scenario-learning-desc">解答疑惑，高效辅导</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="coding">
+                                <span class="scenario-emoji">💻</span>
+                                <span class="scenario-title-text" data-i18n="scenario-coding">代码助手</span>
+                                <span class="scenario-desc" data-i18n="scenario-coding-desc">智能编程，提升效率</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="travel">
+                                <span class="scenario-emoji">🗺️</span>
+                                <span class="scenario-title-text" data-i18n="scenario-travel">旅行规划</span>
+                                <span class="scenario-desc" data-i18n="scenario-travel-desc">行程定制，轻松出行</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="scriptwriting">
+                                <span class="scenario-emoji">🎬</span>
+                                <span class="scenario-title-text" data-i18n="scenario-scriptwriting-title">影视剧本</span>
+                                <span class="scenario-desc" data-i18n="scenario-scriptwriting-desc">AI辅助创作，打造精彩故事</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="summary">
+                                <span class="scenario-emoji">📄</span>
+                                <span class="scenario-title-text" data-i18n="scenario-summary">内容总结</span>
+                                <span class="scenario-desc" data-i18n="scenario-summary-desc">提炼要点，快速掌握</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="fiction">
+                                <span class="scenario-emoji">🚀</span>
+                                <span class="scenario-title-text" data-i18n="scenario-fiction">科幻创作</span>
+                                <span class="scenario-desc" data-i18n="scenario-fiction-desc">奇思妙想，构建未来</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="ml">
+                                <span class="scenario-emoji">🧠</span>
+                                <span class="scenario-title-text" data-i18n="scenario-ml">机器学习</span>
+                                <span class="scenario-desc" data-i18n="scenario-ml-desc">模型构建，数据洞察</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="social">
+                                <span class="scenario-emoji">📢</span>
+                                <span class="scenario-title-text" data-i18n="scenario-social">自媒体营销</span> 
+                                <span class="scenario-desc" data-i18n="scenario-social-desc">爆款文案，玩转流量</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="text-to-image">
+                                <span class="scenario-emoji">🖼️</span>
+                                <span class="scenario-title-text" data-i18n="scenario-tti-title">文生图</span>
+                                <span class="scenario-desc" data-i18n="scenario-tti-desc">根据文本描述生成图像</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="image-to-image">
+                                <span class="scenario-emoji">✨🖼️</span>
+                                <span class="scenario-title-text" data-i18n="scenario-iti-title">图生图</span>
+                                <span class="scenario-desc" data-i18n="scenario-iti-desc">基于现有图像进行修改和创作</span>
+                            </button>
+                            <button class="scenario-btn" data-scenario="image-analysis-detailed">
+                                <span class="scenario-emoji">🔍🖼️</span>
+                                <span class="scenario-title-text" data-i18n="scenario-img-analyze-detail-title">图像提示</span>
+                                <span class="scenario-desc" data-i18n="scenario-img-analyze-detail-desc">深入分析并给出提示语句</span>
+                            </button>
+                        </div>
+
+                    </div>
+                    <!-- Container for Sub-Prompts -->
+                    <div id="subPromptsContainer" class="sub-prompts-container"></div>
+                </section>
+
+                <!-- 核心功能区域 - Content from old capabilities.html -->
+                <section class="content-section" id="capabilities-section">
+                    <!-- 
+                        确保这里填充了之前 capabilities.html 的所有内容，例如：
+                        <h2 data-i18n="capabilities-title">核心技术能力</h2>
+                        <div class="capability-grid"> ... </div>
+                        <h2 data-i18n="benchmark-title">性能基准</h2>
+                        <div class="achievement-cards"> ... </div>
+                        <h2 data-i18n="comparison-title">版本对比</h2>
+                        <div class="comparison-table"> ... </div>
+                        etc.
+                    -->
+                    <h2 data-i18n="capabilities-title" style="text-align: center; margin-top: 20px; margin-bottom: 30px; font-size: 1.8rem; color: #333;">核心技术能力 (占位)</h2>
+                    <p style="text-align: center;">(这里应填充核心功能页面的实际内容)</p>
+                    <p style="text-align: center;">例如：特性列表、性能指标、版本对比等。</p>
+                </section>
+
+                <!-- 用户评价区域 - Content Replaced from reviews.html -->
+                <section class="reviews-section">
+                    <h2 data-i18n="user-reviews">用户真实评价</h2>
+                    <!-- Remove Review Filter Buttons -->
+                    <!-- <div class="review-filter">
+                        <button class="filter-btn active" data-filter="all" data-i18n="filter-all">全部评价</button>
+                        <button class="filter-btn" data-filter="coding" data-i18n="filter-coding">编程能力</button>
+                        <button class="filter-btn" data-filter="understanding" data-i18n="filter-understanding">理解能力</button>
+                        <button class="filter-btn" data-filter="image" data-i18n="filter-image">图像处理</button>
+                    </div> -->
+    
+                    <div class="marquee-container">
+                        <div class="marquee-row" id="review-row-1">
+                            <!-- Row 1: Card 1 -->
+                            <div class="review-card" data-category="coding">
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/何.png" alt="何总头像" onerror="this.src='https://placehold.co/50x50?text=何'">
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-zhang">何RE</h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-05-15</span>
+                                </div>
+                                <p class="review-content" data-i18n="review-1">作为一名资深开发者，我对Gemini 2.5 Pro的代码能力印象深刻。它不仅能生成高质量的代码，还能理解复杂的系统架构，并提供有价值的重构建议。它帮我解决了一个困扰了几天的并发问题，分析得非常透彻。</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-coding-assistant">编程助手</span><span class="tag" data-i18n="tag-debugging">代码调试</span><span class="tag" data-i18n="tag-system-design">系统设计</span>
+                                </div>
+                            </div>
+                            <!-- Row 1: Card 2 -->
+                            <div class="review-card" data-category="coding">
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/王.jpg" alt="用户头像" onerror="this.src='https://placehold.co/50x50?text=王'">
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-wang">无路可回</h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-05-10</span>
+                                </div>
+                                <p class="review-content" data-i18n="review-2">Gemini 2.5 Pro在多语言编程方面表现出色。我用它生成了Python、JavaScript和Rust代码，质量都很高。特别是它对算法优化的建议，帮我将一个O(n²)的算法优化到了O(n log n)，性能提升明显。</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-algorithm">算法优化</span><span class="tag" data-i18n="tag-multilingual">多语言支持</span>
+                                </div>
+                            </div>
+                            <!-- Row 1: Card 3 - MODIFIED FOR TEXT-TO-IMAGE -->
+                            <div class="review-card" data-category="text-to-image">
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/灰.png" alt="用户头像" onerror="this.src='https://placehold.co/50x50?text=灰'">
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-li">灰灰</h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-05-18</span>
+                                </div>
+                                <p class="review-content" data-i18n="review-3">Gemini 2.5 Pro 的文生图功能太惊艳了！我只需要简单的文字描述，就能生成非常富有创意和细节的图像。无论是想快速可视化一个概念，还是创作独特的数字艺术，它都能满足我的需求。</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-tti">文生图</span><span class="tag" data-i18n="tag-creative-image">创意图像</span><span class="tag" data-i18n="tag-ai-art">AI艺术</span>
+                                </div>
+                            </div>
+                            <!-- Row 1: Card 4 - MODIFIED FOR IMAGE-TO-IMAGE -->
+                            <div class="review-card" data-category="image-to-image">
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/吴.png" alt="用户头像" onerror="this.src='https://placehold.co/50x50?text=吴'">
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-wu">ISFP婷</h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-05-22</span>
+                                </div>
+                                <p class="review-content" data-i18n="review-iti-wu">我经常使用 Gemini 2.5 Pro 的图生图功能来编辑和增强我的设计作品。上传一张图片，就能轻松转换艺术风格，或者进行精细调整，比如改变光照、添加元素。对于设计师来说非常实用！</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-iti">图生图</span><span class="tag" data-i18n="tag-image-edit">图像编辑</span><span class="tag" data-i18n="tag-style-transfer">风格转换</span>
+                                </div>
+                            </div>
+                            <!-- Row 1: Card 5 -->
+                            <div class="review-card" data-category="coding">
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/钱.jpg" alt="用户头像" onerror="this.src='https://placehold.co/50x50?text=钱'">
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-qian">sijer</h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-05-24</span> <!-- Placeholder Date -->
+                                </div>
+                                <p class="review-content" data-i18n="review-text-6">"用 Gemini 2.5 Pro 处理数据和生成 Python 脚本简直是享受。它能快速理解复杂的分析需求，生成的代码质量很高，大大提高了我的工作效率。"</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-coding">编程能力</span><span class="tag" data-i18n="tag-data-analysis">数据分析</span><span class="tag" data-i18n="tag-python">Python</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="marquee-row" id="review-row-2">
+                            <!-- Row 2: Card 6 - 陈同学 -->
+                            <div class="review-card" data-category="understanding">
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/陈.png" alt="陈同学头像" onerror="this.src='https://placehold.co/50x50?text=陈'">
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-chen">就是那块小饼干</h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-05-05</span>
+                                </div>
+                                <p class="review-content" data-i18n="review-4">我在教学中使用Gemini 2.5 Pro辅助备课和答疑。它能根据学生的不同理解水平调整解释方式，将复杂概念简化为易懂的比喻。它对问题的理解非常准确，即使是含糊不清的提问也能把握核心意图。</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-education">教育辅助</span><span class="tag" data-i18n="tag-explanation">概念解释</span>
+                                </div>
+                            </div>
+                            <!-- Row 2: Card 7 - Updated to Scriptwriter Li -->
+                            <div class="review-card" data-category="scriptwriting">
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/酒.jpg" alt="酒肆馨月头像" onerror="this.src='https://placehold.co/50x50?text=酒'"> 
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-scriptwriter-li">酒肆馨月</h4> 
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-05-20</span>
+                                </div>
+                                <p class="review-content" data-i18n="review-script-1">Gemini 2.5 Pro 在剧本创作方面给了我很大启发。我输入了故事大纲和人物小传，它不仅能扩写出自然的对话，还能提供多种情节走向的建议，甚至分析了不同方案的市场潜力。对于快速迭代剧本初稿非常有帮助。</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-scriptwriting">剧本创作</span><span class="tag" data-i18n="tag-plot-generation">情节构思</span><span class="tag" data-i18n="tag-dialogue-writing">对话生成</span>
+                                </div>
+                            </div>
+                            <!-- Row 2: Card 8 - Zhou's review card (can be kept or changed too if needed) -->
+                             <div class="review-card" data-category="image"> 
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/左.jpg" alt="小左头像" onerror="this.src='https://placehold.co/50x50?text=左'">
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-zhou">是小左呀</h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-05-12</span>
+                                </div>
+                                <p class="review-content" data-i18n="review-6">在医学影像辅助分析方面，Gemini 2.5 Pro表现出色。它能从X光片和CT图像中识别出关键特征，并提供初步的分析意见。虽然不能替代专业诊断，但作为辅助工具，它的准确性和详细程度令人印象深刻。</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-medical">医学影像</span><span class="tag" data-i18n="tag-analysis">专业分析</span>
+                                </div>
+                            </div>
+                            <!-- Row 2: Card 9 - Updated to Video Creator Sun -->
+                            <div class="review-card" data-category="scriptwriting">
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/心.jpg" alt="心心子头像" onerror="this.src='https://placehold.co/50x50?text=心'"> 
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-videographer-sun">心心子</h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-05-26</span> 
+                                </div>
+                                <p class="review-content" data-i18n="review-script-2">我用Gemini 2.5 Pro来构思短视频剧本，它总能给我一些意想不到的创意点。特别是对于反转和包袱的设计，它的建议很亮眼。</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-short-video">短视频</span><span class="tag" data-i18n="tag-creative-script">创意脚本</span><span class="tag" data-i18n="tag-script-optimization">剧本优化</span>
+                                </div>
+                            </div>
+                            <!-- Row 2: Card 10 - 小马 -->
+                            <div class="review-card" data-category="understanding">
+                                <div class="review-header">
+                                    <div class="reviewer">
+                                        <img src="images/马.jpg" alt="小马头像" onerror="this.src='https://placehold.co/50x50?text=马'">
+                                        <div class="reviewer-info">
+                                            <h4 data-i18n="reviewer-ma">自由的小马驹</h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2024-06-01</span> <!-- Placeholder Date -->
+                                </div>
+                                <p class="review-content" data-i18n="review-text-8">用Gemini来学习和理解复杂的概念真是太棒了，解释得通俗易懂，比教科书有趣多了！</p>
+                                <div class="review-tags">
+                                    <span class="tag" data-i18n="tag-learning-tool">学习工具</span><span class="tag" data-i18n="tag-explanation">概念解释</span><span class="tag" data-i18n="tag-student-friendly">学生友好</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 插入综合评分部分 -->
+                <section class="rating-summary">
+                    <h2 data-i18n="overall-rating">综合评分</h2>
+                    <div class="rating-overview">
+                        <div class="overall-rating">
+                            <div class="rating-number">4.8</div>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="rating-count" data-i18n="rating-count" data-i18n-params="1269">基于 1,269 条评价</div>
+                        </div>
+                        <div class="rating-breakdown">
+                            <div class="rating-item">
+                                <span class="rating-label" data-i18n="rating-coding">编程能力</span>
+                                <div class="rating-bar-container">
+                                    <div class="rating-bar" style="width: 94%"></div>
+                                </div>
+                                <span class="rating-value">4.7</span>
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-label" data-i18n="rating-understanding">理解能力</span>
+                                <div class="rating-bar-container">
+                                    <div class="rating-bar" style="width: 96%"></div>
+                                </div>
+                                <span class="rating-value">4.8</span>
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-label" data-i18n="rating-image">图像处理</span>
+                                <div class="rating-bar-container">
+                                    <div class="rating-bar" style="width: 90%"></div>
+                                </div>
+                                <span class="rating-value">4.5</span>
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-label" data-i18n="rating-speed">响应速度</span>
+                                <div class="rating-bar-container">
+                                    <div class="rating-bar" style="width: 98%"></div>
+                                </div>
+                                <span class="rating-value">4.9</span>
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-label" data-i18n="rating-creative">创意能力</span>
+                                <div class="rating-bar-container">
+                                    <div class="rating-bar" style="width: 92%"></div>
+                                </div>
+                                <span class="rating-value">4.6</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-top-line">
+            <a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow" data-translate-key="icpRecord">渝ICP备2025053179号</a>
+            <p><span data-translate-key="contactUs">联系我们</span>: ytsgabcde37@2925.com</p>
+        </div>
+        <div class="footer-bottom-line">
+            <a data-translate-key="copyrightText">内容由AI生成，无法确保真实准确，仅供参考.</a>
+            <a href="privacy-policy.html" data-translate-key="privacyPolicy">个人信息保护规则</a>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js" defer></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const particleContainer = document.createElement('div');
+            particleContainer.classList.add('particles');
+            document.body.appendChild(particleContainer);
+            const numParticles = 100; // 气泡数量
+
+            for (let i = 0; i < numParticles; i++) {
+                let particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `${Math.random() * 100 - 50}%`; // 初始位置更分散
+                const size = Math.random() * 20 + 10; // 气泡大小 10px to 30px
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                const duration = Math.random() * 8 + 5; // 5到13秒的持续时间
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${Math.random() * duration}s`;
+                
+                // 水平漂移，模拟气泡的轻微晃动
+                particle.style.setProperty('--drift', `${(Math.random() - 0.5) * 15}vw`); 
+                
+                particleContainer.appendChild(particle);
+
+                // 鼠标悬停交互 - 气泡变大并更透明
+                particle.addEventListener('mouseover', () => {
+                    particle.style.transform = 'scale(1.5) translateY(-10px)'; // 变大并轻微上移
+                    particle.style.opacity = '0.8';
+                });
+
+                particle.addEventListener('mouseout', () => {
+                    // 恢复原始动画状态，但CSS动画会处理transform和opacity
+                    // 我们不需要在这里重置它们，否则会与CSS动画冲突
+                    // 如果需要更复杂恢复，需要停止并重启CSS动画或管理transform/opacity
+                    particle.style.transform = ''; // 允许CSS动画接管
+                    particle.style.opacity = '';   // 允许CSS动画接管
+                });
+            }
+        
+            const canvasNestScript = document.querySelector('script[src*="canvas-nest.js"]');
+            if (canvasNestScript) {
+                canvasNestScript.remove();
+            }
+            const inlineCanvasNest = Array.from(document.scripts).find(script => script.textContent.includes('canvas-nest.js'));
+            if(inlineCanvasNest) {
+                inlineCanvasNest.remove();
+            }
+        });
+        </script>
+</body>
+</html> 

@@ -1,0 +1,5 @@
+此文件夹用于存放网站所需的图片文件。
+包括：
+- gemini-avatar.png - Gemini头像
+- user1.png 到 user6.png - 用户评价头像
+- 其他UI相关图片 

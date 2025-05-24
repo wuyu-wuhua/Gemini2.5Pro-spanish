@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="profilePageTitle">Informoj pri Uzanto - Gemini 2.5 Pro</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="alternate" hreflang="es" href="http://www.erlinmall.com"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/制作网站图标.png">
+    <style>
+        
+        /* Styles specific to profile page */
+        .profile-container {
+            background-color: var(--chat-container-bg, #fff);
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow, 0 5px 15px rgba(0,0,0,0.1));
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto; /* Center it in the main content area */
+            text-align: center;
+        }
+        .profile-container h1 {
+            color: var(--primary-text-color, #333);
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        .profile-avatar-section {
+            margin-bottom: 25px;
+        }
+        .profile-avatar-display { /* Container for actual avatar img or initial div */
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Important if using img inside */
+            border: 3px solid var(--primary-color, #4285f4);
+        }
+        .profile-avatar-display img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-avatar-initial { /* For the initial letter fallback */
+            width: 100%;
+            height: 100%;
+            background-color: #4285f4; /* Same blue as sidebar */
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-info-item {
+            margin-bottom: 20px;
+            text-align: left;
+            padding: 10px;
+            background-color: var(--input-bg-color, #f8f9fa);
+            border-radius: 8px;
+            border: 1px solid var(--border-color, #e0e0e0);
+        }
+        .profile-info-item strong {
+            display: block;
+            color: var(--secondary-text-color, #555);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        .profile-info-item span {
+            color: var(--primary-text-color, #333);
+            font-size: 1.1rem;
+            word-break: break-all;
+        }
+        .profile-actions {
+            margin-top: 30px;
+        }
+        .profile-back-btn {
+            background-color: var(--primary-color, #4285f4);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* If it's an <a> tag */
+        }
+        .profile-back-btn:hover {
+            background-color: var(--secondary-color, #34a853);
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js" opacity="0.8" count="80" zIndex="-1"></script>
+    <main class="main-layout">
+        <aside class="sidebar">
+            <!-- User Authentication Section (copied from index.html) -->
+            <div id="user-auth-section" class="sidebar-item" style="display: none;">
+                <!-- Content will be populated by js/auth.js -->
+            </div>
+            
+            <!-- Login Button (copied from index.html) -->
+            <div class="sidebar-item" data-tab="login">
+                <a href="login.html" class="sidebar-link login-button-style">
+                    <i class="fas fa-arrow-right-to-bracket"></i>
+                    <span data-i18n="menu-login">点击登录</span>
+                </a>
+            </div>
+
+            <div class="sidebar-menu">
+                <div class="sidebar-item" data-tab="chat">
+                    <a href="index.html" class="sidebar-link">
+                        <i class="fas fa-comments"></i>
+                        <span data-i18n="menu-chat">对话</span>
+                    </a>
+                </div>
+                <div class="sidebar-item" data-tab="newchat">
+                     <a href="index.html#newchat" class="sidebar-link"> <!-- Points to index to trigger new chat logic -->
+                        <i class="fas fa-plus-circle"></i>
+                        <span data-i18n="menu-newchat">新建对话</span>
+                    </a>
+                </div>
+                <div class="sidebar-item" data-tab="history">
+                     <a href="index.html#history" class="sidebar-link"> <!-- Points to index to show history -->
+                        <i class="fas fa-history"></i>
+                        <span data-i18n="menu-history">历史对话</span>
+                    </a>
+                </div>
+                <div class="sidebar-item" data-tab="capabilities">
+                    <a href="capabilities.html" class="sidebar-link">
+                        <i class="fas fa-lightbulb"></i>
+                        <span data-i18n="menu-capabilities">核心功能</span>
+                    </a>
+                </div>
+                <!-- Active class will be handled by script or a check for current page -->
+            </div>
+            <div class="sidebar-content-host" style="display: none;"> 
+                <!-- History list usually goes here, hidden on profile page -->
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <!-- Language Switcher (copied from index.html) -->
+            <div class="language-dropdown page-title-lang-switch">
+                <button class="dropdown-btn">
+                    <span class="current-lang">中文</span>
+                    <i class="fas fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" class="lang-option active" data-lang="zh">中文</a>
+                    <a href="#" class="lang-option" data-lang="en">English</a>
+                </div>
+            </div>
+            
+            <div class="profile-container">
+                <h1 data-i18n="userProfileTitle">用户信息</h1>
+                
+                <div class="profile-avatar-section">
+                    <div id="profileAvatarDisplay" class="profile-avatar-display">
+                        <!-- Avatar img or initial div will be injected here by profile.js -->
+                    </div>
+                </div>
+
+                <div class="profile-info-item">
+                    <strong data-i18n="profileLabelName">用户名称:</strong>
+                    <span id="profileUserName">-</span>
+                </div>
+                <div class="profile-info-item">
+                    <strong data-i18n="profileLabelEmail">用户邮箱:</strong>
+                    <span id="profileUserEmail">-</span>
+                </div>
+                <div class="profile-info-item">
+                    <strong data-i18n="profileLabelGoogleID">Google ID:</strong>
+                    <span id="profileUserGoogleID">-</span>
+                </div>
+
+                <div class="profile-actions">
+                    <a href="index.html" class="profile-back-btn" data-i18n="profileBackToHome">返回首页</a>
+                </div>
+            </div>
+
+        </div> <!-- .main-content -->
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-top-line">
+            <a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow" data-translate-key="icpRecord">渝ICP备2025053179号</a>
+            <p><span data-translate-key="contactUs">联系我们</span>: ytsgabcde37@2925.com</p>
+        </div>
+        <div class="footer-bottom-line">
+            <a data-translate-key="copyrightText">内容由AI生成，无法确保真实准确，仅供参考.</a>
+            <p data-translate-key="privacyPolicy">个人信息保护规则</p>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/auth.js" defer></script> 
+    <script src="js/profile.js" defer></script> 
+    <!-- main.js is not strictly needed if sidebar tabs here just link out, but harmless -->
+    <script src="js/main.js" defer></script> 
+</body>
+</html> 

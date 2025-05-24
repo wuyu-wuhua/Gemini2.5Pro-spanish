@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini 2.5 Profesia Ĉina Versio | Bazaj funkcioj</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="alternate" hreflang="es" href="http://www.erlinmall.com"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/制作网站图标.png">
+</head>
+<body>
+    <!-- Header can be minimal or match index.html's empty state -->
+    <header>
+    </header>
+
+    <main>
+        <div class="main-layout">
+            <!-- 左侧边栏 (与 index.html 相同) -->
+            <aside class="sidebar">
+                <!-- User Authentication Section -->
+                <div id="user-auth-section" class="sidebar-item" style="display: none;">
+                    <!-- Content will be populated by js/main.js -->
+                </div>
+                
+                <!-- Login Button (Styled to match index.html) -->
+                <div class="sidebar-item" data-tab="login">
+                    <a href="login.html" class="sidebar-link login-button-style">
+                        <i class="fas fa-arrow-right-to-bracket"></i> <!-- Corrected icon -->
+                        <span data-i18n="menu-login">点击登录</span>
+                    </a>
+                </div>
+
+                <!-- ENSURE NO LANGUAGE SWITCHER HERE (if one was planned for sidebar) -->
+                <div class="sidebar-menu">
+                    <!-- Removed the old login button from here if it was duplicated -->
+                    <div class="sidebar-item" data-tab="chat">
+                        <i class="fas fa-comments"></i>
+                        <span data-i18n="menu-chat">对话</span>
+                    </div>
+                    <div class="sidebar-item" data-tab="newchat">
+                        <i class="fas fa-plus-circle"></i>
+                        <span data-i18n="menu-newchat">新建对话</span>
+                    </div>
+                    <div class="sidebar-item" data-tab="history">
+                        <i class="fas fa-history"></i>
+                        <span data-i18n="menu-history">历史对话</span>
+                    </div>
+                    <!-- 核心功能按钮在此页面应为 active -->
+                    <div class="sidebar-item active" data-tab="capabilities">
+                        <i class="fas fa-lightbulb"></i>
+                        <span data-i18n="menu-capabilities">核心功能</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 主内容区 - 加载原 capabilities.html 内容 -->
+            <div class="main-content">
+                 <!-- 标题、副标题和语言切换 -->
+                 <div class="page-title-block">
+                    <!-- Title and Subtitle Group -->
+                    <div class="title-subtitle-group">
+                         <h1 data-i18n="core-capabilities">核心功能</h1>
+                         <p class="subtitle" data-i18n="subtitle">Gemini 2.5 Pro最新版-核心能力介绍</p> <!-- 副标题可以调整 -->
+                    </div>
+                    <!-- Language Switcher -->
+                 </div>
+
+                <!-- 原 capabilities.html 的主要内容 -->
+                <section class="capabilities-section">
+                    <h2 data-i18n="performance-title">Gemini 2.5 Pro 屠榜表现</h2>
+                    <div class="achievement-cards">
+                        <div class="achievement-card">
+                            <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
+                            <h3>MMLU</h3>
+                            <p data-i18n="mmlu-desc">在多任务语言理解基准测试中，Gemini 2.5 Pro 取得了90.0%的成绩，超越了人类专家水平。</p>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon"><i class="fas fa-code"></i></div>
+                            <h3>HumanEval</h3>
+                            <p data-i18n="humaneval-desc">在代码生成能力测试中，Gemini 2.5 Pro 达到了94.4%的通过率，远超前代模型。</p>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon"><i class="fas fa-brain"></i></div>
+                            <h3>GSM8K</h3>
+                            <p data-i18n="gsm8k-desc">在数学推理能力测试中，Gemini 2.5 Pro 解题准确率达到97.7%，创下新纪录。</p>
+                        </div>
+                    </div>
+                </section>
+    
+                <section class="capabilities-section">
+                    <h2 data-i18n="core-capabilitie">核心能力</h2>
+                    <div class="capability-grid">
+                        <div class="capability-card">
+                            <div class="capability-icon"><i class="fas fa-comments"></i></div>
+                            <h3 data-i18n="conversation-title">多轮对话能力</h3>
+                            <p data-i18n="conversation-desc">Gemini 2.5 Pro 能够维持长时间、复杂的对话，保持上下文连贯性，理解隐含信息。</p>
+                        </div>
+                        <div class="capability-card">
+                            <div class="capability-icon"><i class="fas fa-image"></i></div>
+                            <h3 data-i18n="multimodal-title">多模态理解</h3>
+                            <p data-i18n="multimodal-desc">能够同时处理文本、图像、音频和视频输入，实现跨模态内容理解与生成。</p>
+                        </div>
+                        <div class="capability-card">
+                            <div class="capability-icon"><i class="fas fa-laptop-code"></i></div>
+                            <h3 data-i18n="code-title">代码能力</h3>
+                            <p data-i18n="code-desc">支持多种编程语言的代码生成、调试和优化，理解复杂算法和系统架构。</p>
+                        </div>
+                        <div class="capability-card">
+                            <div class="capability-icon"><i class="fas fa-lightbulb"></i></div>
+                            <h3 data-i18n="creative-title">创意思维</h3>
+                            <p data-i18n="creative-desc">具备创造性思维能力，可以生成原创内容、创意写作和艺术创作辅助。</p>
+                        </div>
+                    </div>
+                </section>
+    
+                <section class="capabilities-section">
+                    <h2 data-i18n="comparison-title">2.5 Pro 相比上一代的提升</h2>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th data-i18n="table-capability">能力</th>
+                                    <th>Gemini 1.5 Pro</th>
+                                    <th>Gemini 2.5 Pro</th>
+                                    <th data-i18n="table-improvement">提升</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-i18n="table-context">上下文窗口</td>
+                                    <td>100万 tokens</td>
+                                    <td>200万 tokens</td>
+                                    <td>+100%</td>
+                                </tr>
+                                <tr>
+                                    <td data-i18n="table-multimodal">多模态理解</td>
+                                    <td data-i18n="table-basic">基础理解</td>
+                                    <td data-i18n="table-advanced">深度理解与推理</td>
+                                    <td data-i18n="table-significant">显著提升</td>
+                                </tr>
+                                <tr>
+                                    <td data-i18n="table-reasoning">推理能力</td>
+                                    <td data-i18n="table-good">良好</td>
+                                    <td data-i18n="table-expert">接近人类专家</td>
+                                    <td>+35%</td>
+                                </tr>
+                                <tr>
+                                    <td data-i18n="table-code-gen">代码生成</td>
+                                    <td>85.6%</td>
+                                    <td>94.4%</td>
+                                    <td>+8.8%</td>
+                                </tr>
+                                <tr>
+                                    <td data-i18n="table-knowledge">知识更新</td>
+                                    <td>2023年</td>
+                                    <td data-i18n="table-realtime">2024年实时</td>
+                                    <td data-i18n="table-current">更新至今</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-top-line">
+            <a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow" data-translate-key="icpRecord">渝ICP备2025053179号</a>
+            <p><span data-translate-key="contactUs">联系我们</span>: ytsgabcde37@2925.com</p>
+        </div>
+        <div class="footer-bottom-line">
+            <a data-translate-key="copyrightText">内容由AI生成，无法确保真实准确，仅供参考.</a>
+            <a href="privacy-policy.html" data-translate-key="privacyPolicy">个人信息保护规则</a>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+     <script>
+        // Ensure the correct sidebar item is active on this page
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active'); // Remove active from all first
+                
+                const tabId = item.getAttribute('data-tab');
+
+                if (tabId === 'capabilities') {
+                    item.classList.add('active'); // Set current page's tab to active
+                    // Optional: Prevent re-navigation to itself
+                    item.addEventListener('click', (e) => e.preventDefault()); 
+                } else if (tabId === 'chat' || tabId === 'newchat' || tabId === 'history') {
+                    // Override click behavior for these items to navigate to index.html
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault(); // Prevent any default or js/main.js behavior
+                        // For "newchat", we might want to signal index.html to start a new chat,
+                        // or simply go to the default chat view. For now, all go to index.html.
+                        // To go to a specific section (if index.html is set up for it):
+                        // window.location.href = `index.html#${tabId}`; 
+                        window.location.href = 'index.html'; 
+                    });
+                }
+            });
+            
+            // Initialize language and translations
+            const savedLang = localStorage.getItem('language') || 'ru';
+            if (typeof switchLanguage === 'function') {
+                switchLanguage(savedLang);
+            } else if (typeof applyTranslations === 'function') { // Fallback if main.js context is missing switchLanguage
+                applyTranslations(savedLang);
+            }
+            // applyTranslations will be called by switchLanguage if it exists
+            // If switchLanguage might not exist (e.g. if main.js loading failed),
+            // and translations are critical for this page, call it directly:
+            // else if (typeof applyTranslations === 'function') {
+            //    applyTranslations();
+            // }
+
+            // Ensure footer translations are applied correctly by enhancing the applyTranslations function or ensuring it's called with the right context.
+            // For capabilities.html, the general applyTranslations from main.js is used.
+            // We need to ensure that the applyTranslations function in main.js also handles 'data-translate-key' for the footer.
+
+            // The DOMContentLoaded listener in js/main.js will also run.
+            // The setupMarquee() call in main.js's listener will harmlessly fail if no marquee on this page.
+            // The switchTab('chat') call in main.js's listener will try to find #chat-section etc.
+            // which won't exist here, so it will also do nothing harmful.
+            // The click listeners attached by js/main.js to sidebar items will be overridden
+            // by the more specific listeners we add above for 'chat', 'newchat', 'history'.
+
+            // Since language switcher might be managed by main.js, ensure consistency if elements are here
+            const currentLangSpan = document.querySelector('.current-lang');
+            const langOptions = document.querySelectorAll('.lang-option');
+            if (currentLangSpan) {
+                currentLangSpan.textContent = 'Русский';
+            }
+            if (langOptions) {
+                langOptions.forEach(option => {
+                    option.classList.toggle('active', option.getAttribute('data-lang') === savedLang);
+                    if (option.getAttribute('data-lang') !== 'ru') option.style.display = 'none'; else option.style.display = 'block';
+                     // If language switcher is present on this page, ensure its event listeners are for RU only
+                    const newOption = option.cloneNode(true);
+                    option.parentNode.replaceChild(newOption, option);
+                    newOption.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (newOption.getAttribute('data-lang') === 'ru' && typeof switchLanguage === 'function') {
+                            switchLanguage('ru');
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const particleContainer = document.createElement('div');
+        particleContainer.classList.add('particles');
+        document.body.appendChild(particleContainer);
+        const numParticles = 100; // 气泡数量
+
+        for (let i = 0; i < numParticles; i++) {
+            let particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.bottom = `${Math.random() * 100 - 50}%`; // 初始位置更分散
+            const size = Math.random() * 20 + 10; // 气泡大小 10px to 30px
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            const duration = Math.random() * 8 + 5; // 5到13秒的持续时间
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${Math.random() * duration}s`;
+            
+            particle.style.setProperty('--drift', `${(Math.random() - 0.5) * 15}vw`); 
+            
+            particleContainer.appendChild(particle);
+
+            particle.addEventListener('mouseover', () => {
+                particle.style.transform = 'scale(1.5) translateY(-10px)';
+                particle.style.opacity = '0.8';
+            });
+
+            particle.addEventListener('mouseout', () => {
+                particle.style.transform = ''; 
+                particle.style.opacity = '';   
+            });
+        }
+
+        const canvasNestScript = document.querySelector('script[src*="canvas-nest.js"]');
+        if (canvasNestScript) {
+            canvasNestScript.remove();
+        }
+        const inlineCanvasNest = Array.from(document.scripts).find(script => script.textContent.includes('canvas-nest.js'));
+        if(inlineCanvasNest) {
+            inlineCanvasNest.remove();
+        }
+    });
+    </script>
+</body>
+</html>
