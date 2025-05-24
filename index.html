@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BG63PTXMNY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BG63PTXMNY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="htmlTitle">Gemini 2.5 Profesia Ĉina Versio | Altrapida hejma aliro kaj AI-modela ŝarĝo</title>
@@ -496,7 +504,7 @@
             for (let i = 0; i < numParticles; i++) {
                 let particle = document.createElement('div');
                 particle.classList.add('particle');
-                particle.style.left = `${Math.random() * 100}%`;
+    particle.style.left = `${Math.random() * 100}%`;
                 particle.style.bottom = `${Math.random() * 100 - 50}%`; // 初始位置更分散
                 const size = Math.random() * 20 + 10; // 气泡大小 10px to 30px
                 particle.style.width = `${size}px`;
